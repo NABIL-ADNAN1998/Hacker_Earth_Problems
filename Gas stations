@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+ll const N = 1e9 + 2;
+
+int main()
+{
+    ll n, x;
+    cin >> n >> x;
+    ll g[n + 1];
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> g[i];
+    }
+
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (x <= 0)
+        {
+            break;
+        }
+        x -= g[i];
+        ans += 1;
+    }
+
+    cout << ans << endl;
+}
