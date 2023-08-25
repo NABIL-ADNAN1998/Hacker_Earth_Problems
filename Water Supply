@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+ll const N = 200010;
+
+vector<ll> g[N];
+bool blocked[N];
+bool visited[N];
+ll m, ans = 1;
+
+void dfs(ll vertex)
+{
+    m += 1;
+    visited[vertex] = true;
+    for (auto child : g[vertex])
+    {
+        if (visited[child] == false && blocked[child] == 0)
+        {
+            dfs(child);
+        }
+        if(blocked[child]==1)
+        {
+            m += 1;
+        }
+    }
+}
+
+int main()
+{
+    ll n;
+    cin >> n;
+    for (ll i = 0; i < (n - 1); i++)
+    {
+        ll u, v;
+        cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    for (ll i = 1; i <= n; i++)
+    {
+        ll x;
+        cin >> x;
+        blocked[i] = x;
+    }
+
+    for (ll i = 1; i <= n; i++)
+    {
+        if (visited[i] == false && blocked[i] == 0)
+        {
+            m = 0;
+            dfs(i);
+            ans = max(ans, m );
+        }
+    }
+
+    cout << ans << endl;
+}
